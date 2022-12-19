@@ -117,7 +117,7 @@ main input{
 span{
 	display: inline;
 }
-@media(max-width: 700px){
+@media(max-width: 900px){
 	body{
 		font-size: 12.5px;
 	}
