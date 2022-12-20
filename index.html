@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>speed test</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<main>
+			<div class="tabs_container">
+				<div class="tab active" id="openMain"><img src="images/play-icon.png" alt="start"></div>
+				<div class="tab inactive" id="openSettings"><img src="images/gear-icon.png" alt="settings"></div>
+			</div>
+			<div class="tabs_content_container">
+				<div class="main_content">
+					<div class="header">
+						<a href="#" id = "refresh">Refresh</a>
+						<p>Time left: <span class="bold" id = "timer">60</span>s</p>
+					</div>
+					<input type="text">
+					<div class="content">
+					<div class="text_field">
+						<p></p>
+					</div>
+					<div class="info">
+						<ul>
+							<li>Symbols: <span class="bold" id = "percentage">0</span></li>
+							<li>Mistakes: <span class="bold" id = "mistakes">10</span></li>
+							<li>CPM: <span class="bold" id = "cpm">0</span></li>
+						</ul>
+						<a id ="restart">Try again</a>
+					</div>
+					</div>
+				</div>
+				<div class="settings_content">
+					Тут ничего нет. Вообще тут должно было что-то быть, но я пока не придумал что именно, и, наверное, не придумаю
+				</div>
+			</div>
+		</div>
+		</main>
+	<script src = "js/script.js"></script>
+	<script src = "js/tabs.js"></script>	
+	</body>
+</html>
