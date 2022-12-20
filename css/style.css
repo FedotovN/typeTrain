@@ -216,6 +216,7 @@ span{
 		font-size: 12.5px;
 	}
 	main{
+		transform: scale(.875);
 		padding: 45px 25px;
 		height: auto;
 		min-height: 500px;
