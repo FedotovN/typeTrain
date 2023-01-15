@@ -13,9 +13,7 @@ label{
 	user-select: none;
 }
 .text_field p{
-	word-break: break-all;
 	line-height: 23.5px;
-	letter-spacing: 1.15px;
 }
 a{
 	text-decoration: none;
@@ -29,7 +27,6 @@ main > p{
 	top: 0;
 }
 main{
-	border: 2px solid #2b292b;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -40,10 +37,10 @@ main{
 	min-height: 225px;
 	width: 600px;
 	background-color: #fff;
-	border-radius: 15px;
-	border-top-left-radius: 0;
+	border-radius: 8px;
 }
 .header{
+	font-size: 16px;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
@@ -53,8 +50,8 @@ main{
 }
 .header a{
 	border: 1px solid transparent;
-	border-radius: 20px;
 	background-color: #413b4b;
+	border-radius: 8px;
 	padding: 20px;
 	transition: .3s;
 }
@@ -70,15 +67,20 @@ main{
 	opacity: 0;
 }
 .text_field{
+	overflow-y: scroll;
+	font-size: 19px;
 	width: 100%;
 	border-bottom: 1px solid grey;
+}
+.text_field::-webkit-scrollbar{
+	width: 0;
 }
 .content{
 	display: flex;
 	flex-flow: column nowrap;
 	padding: 15px;
 	border: 1px solid grey;
-	border-radius: 15px;
+	border-radius: 8px;
 	width: 550px;
 }
 .info{
@@ -104,55 +106,14 @@ main{
 .info ul li{
 	white-space: pre;
 }
-.tabs_container{
-	width: 100%;
-	top: -52px;
-	left: -2px;
-	position: absolute;
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-}
-.tab{
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100px;
-	height: 50px;
-	background-color: #fff;
-	border-top-left-radius: 15px;
-	border-top-right-radius: 15px;
 
-}
-.inactive:hover img{
-	transform: scale(1.2);
-}
-.inactive:hover{
-	opacity: 1;
-}
-.active{
-	border-top: 2px solid #2b292b;
-	border-right: 2px solid #2b292b;
-	border-left: 2px solid #2b292b;
-}
-img{
-	transition: .3s;
-}
-.inactive{
-	opacity: .7;
-	transition: .3s;
-	border-bottom: 2px solid #2b292b;
-}
-.tab img{
-	height: 20px;
-}
 .info a{
 	user-select: none;
 	cursor: pointer;
 	background-color: #413b4b;
 	padding: 20px;
-	border-radius: 20px;
+	border-radius: 8px;
+	font-size: 16px;
 	transition: .3s;
 	border: 1px solid transparent;
 }
@@ -162,9 +123,6 @@ img{
 	background-color: #fff;
 	color: #413b4b;
 }
-span{
-	display: inline;
-}
 .main_content{
 	gap: 25px;
     display: flex;
@@ -173,53 +131,12 @@ span{
     justify-content: center;
     align-items: center;
 }
-.settings_content{
-	display: flex;
-	align-items: center;
-	gap: 25px;
-	height: 450px;
-}
-.main_settings_wrapper{
-	width: 100%;
-}
-.main_settings_wrapper input[type="text"]{
-	text-align: center;
-	width: 550px;
-}
-.main_settings_wrapper button{
-	width: 30%;
-}
-.main_settings_wrapper{
-	height: 300px;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: space-around;
-	align-items: center;
-}
-.active_container{
-	position: relative;
-	z-index: 0;
-	opacity: 1;
-	height: auto;
-	min-height: 225px;
-	width: 600px;
-}
-.inactive_container{
-	position: relative;
-	opacity: 0;
-	width: 0;
-	height: 0;
-	z-index: -100;
-}
 @media(max-width: 700px){
 	body{
 		font-size: 12.5px;
 	}
 	main{
-		transform: scale(.875);
 		padding: 45px 25px;
-		height: auto;
-		min-height: 500px;
 		width: 300px;
 		background-color: #fff;
 	}
@@ -233,7 +150,7 @@ span{
 		padding: 15px;
 		height: 490px;
 		border: 1px solid grey;
-		border-radius: 15px;
+		border-radius: 8px;
 		width: 280px;
 	}
 	.text_field{
@@ -258,9 +175,17 @@ span{
 		flex-flow: column nowrap;
 		justify-content: center;
 	}
+	.info ul li:first-child{
+		border: none;
+	}
 	.info ul li{
-		padding-top: 5px;
-}
+		padding-top: 10px;
+		padding-bottom: 10px;
+		width: 120px;
+		text-align: center;
+		font-size: 16px;
+		border-top: 1px solid grey;
+	}
 	.header{
 		display: flex;
 		flex-flow: row nowrap;
@@ -270,10 +195,7 @@ span{
 		gap: 40px;
 	}
 	.header a{
-		border-radius: 20px;
-		background-color: #413b4b;
 		padding: 20px;
-		transition: .3s;
 	}
 	.active_container {
 		min-height: 500px;
