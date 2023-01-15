@@ -7,14 +7,14 @@ let doc = document,
 	typedCount = doc.getElementById("percentage"),
 	mistakesCount = doc.getElementById("mistakes"),
 	cpm = doc.getElementById("cpm"),
+	wpm = doc.getElementById("wpm"),
 	textField = doc.querySelector(".text_field p"),
 	charIndex = 0,
 	characters = [],
+	mistakesInd = [],
 	secLeft = 60,
 	interId = 0,
-	mistakes = 0, wpmCounter = 0,
-	currStr = [],
-	flag = false
+	mistakes = 0, wpmCounter = 0
 function convert(){
 	let characters = []
 	let res = '';
@@ -37,9 +37,14 @@ function loadQuote(){
         }
     })
     .then(data=>{
+		started = false
         textField.innerText = data.content
 		characters = convert()
-		secLeft = Math.floor(characters.length * .6)
+		input.value = ''
+		charIndex = 0
+		typedCount.innerText = charIndex
+		cpm.innerText = 0
+		secLeft = 60
 		timer.innerText = secLeft
     })
 }
@@ -57,50 +62,70 @@ function reset(){
 	typedCount.innerText = '0'
 	cpm.innerText = cpmCounter
 }
+function stylizeLetter(s, flag, right = true){
+	if(flag){
+		if(right){
+			s.backgroundColor = "#413b4b"
+			s.color = "green"
+		}
+		else{
+			s.backgroundColor = "red"
+			s.color = 'black'
+		}
+	}
+	else{
+		s.backgroundColor = "transparent"
+		s.color = "black"
+	}
+}
 window.onload = ()=>{
-	setInterval(()=>{
-		cpm.innerText = currStr.length * 60
-		currStr = []
-	}, 1000)
 	reset()
 	doc.addEventListener(("keydown"), () => input.focus())
 	textField.addEventListener(("click"), () => input.focus())
-	input.addEventListener(("input"), ()=>{
-		if(!flag){
-			flag = true
-			interId = setInterval(()=>{
-				secLeft-=1
-				timer.innerText = secLeft
-				if(secLeft <= 0) reset()
-			}, 1000)
-
+	setInterval(()=>{
+		if(started){
+			secLeft--
+			timer.innerText = secLeft
 		}
-		if(secLeft > 0){
-			if(input.value[input.value.length-1] === characters[charIndex]){
-				if(charIndex === characters.length-1){
-					refresh()
-					return
+	}, 1000)
+	input.addEventListener(("input"), ()=>{
+			if(input.value[charIndex]){
+				if(secLeft > 0){
+					if(!started) started = true
+					if(charIndex !== characters.length-1){
+						if(characters[charIndex] === input.value[charIndex]){
+							stylizeLetter(textField.children[charIndex].style, true, true)
+						}
+						else{
+							stylizeLetter(textField.children[charIndex].style, true, false)
+							mistakes++
+							mistakesInd.push(charIndex)
+							mistakesCount.innerText = mistakes
+						}
+					}
+					else{
+						input.value = input.value.slice(0, charIndex+1)
+						if(mistakes === 0) reset()
+						return
+					} 
 				}
-				if(charIndex > 0){
-					textField.children[charIndex-1].style.border = "none"
-					textField.children[charIndex].style.padding = "0"
-				}
-				textField.children[charIndex].style.color = "rgb(158, 245, 122)"
-				textField.children[charIndex].style.backgroundColor = "#413b4b"
-				if(charIndex < characters.length - 1){
-					textField.children[charIndex+1].style.borderBottom = "1.5px solid #413b4b"
-					textField.children[charIndex+1].style.padding = "2px"
-				}
-				charIndex += 1
-				typedCount.innerText = charIndex+1
-				currStr.push(input.value)
+				else reset()
+				charIndex++
+				typedCount.innerText = charIndex
+				cpm.innerText = charIndex - mistakes
+				let wpmVal = Math.round((((charIndex - mistakes) / 5) / (60 - secLeft)) * 60)
+				wpmVal = !wpmVal || wpmVal === Infinity ? 0 : wpmVal
+				wpm.innerText = wpmVal
 			}
 			else{
-				textField.children[charIndex].style.color = "red"
-				mistakes += 1
-				mistakesCount.innerText = mistakes
+				charIndex === 0 ? charIndex : charIndex--
+				if(mistakesInd.includes(charIndex)){
+					mistakesInd = mistakesInd.filter(el => el != charIndex)
+					mistakes--
+					mistakesCount.innerText = mistakes
+				}
+				stylizeLetter(textField.children[charIndex].style, false)
 			}
-		}
 	})
 	refreshButton.addEventListener(('click'), refresh)
 	restartButton.addEventListener(('click'), reset)
